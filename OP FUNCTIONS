@@ -1,0 +1,55 @@
+-- Create GUI elements
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "RakOOF_OP_GUI"
+screenGui.Parent = game.CoreGui
+
+local frame = Instance.new("Frame")
+frame.Name = "MainFrame"
+frame.Size = UDim2.new(0, 300, 0, 200)
+frame.Position = UDim2.new(0.5, -150, 0.5, -100)
+frame.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+frame.Active = true
+frame.Draggable = true
+frame.Parent = screenGui
+
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Name = "TitleLabel"
+titleLabel.Text = "The RakOOF OP GUI"
+titleLabel.Size = UDim2.new(1, 0, 0, 50)
+titleLabel.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+titleLabel.TextColor3 = Color3.new(1, 1, 1)
+titleLabel.Font = Enum.Font.GothamBold
+titleLabel.TextSize = 24
+titleLabel.Parent = frame
+
+local button = Instance.new("TextButton")
+button.Name = "InfiniteStaminaButton"
+button.Text = "Enable Infinite Stamina"
+button.Size = UDim2.new(0, 200, 0, 50)
+button.Position = UDim2.new(0.5, -100, 0.5, -25)
+button.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+button.TextColor3 = Color3.new(1, 1, 1)
+button.Font = Enum.Font.GothamBold
+button.TextSize = 20
+button.Parent = frame
+
+-- Infinite Stamina Function
+local function enableInfiniteStamina()
+local setreadonly = setreadonly or make_writeable
+local pussymode = game.workspace[game.Players.LocalPlayer.Name].CharValues.StaminaPercentValue
+local mt = getrawmetatable(game)
+local old = mt.__index
+setreadonly(mt, false)
+mt.__index = newcclosure(function(tbl, idx)
+if idx == "Value" and tbl == pussymode then
+return 100
+end
+return old(tbl, idx)
+end)
+setreadonly(mt, true)
+end
+
+-- Button Click Event
+button.MouseButton1Click:Connect(enableInfiniteStamina)
+
+print("RakOOF OP GUI loaded.")
